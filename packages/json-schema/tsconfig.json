@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "esm"
+  },
+  "typedocOptions": {
+    "name": "Stackmeister JSON-Schema",
+    "includeVersion": true,
+    "categorizeByGroup": true,
+    "hideGenerator": true
+  },
+  "include": [
+    "./src"
+  ]
+}

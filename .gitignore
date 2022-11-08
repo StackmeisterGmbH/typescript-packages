@@ -1,0 +1,9 @@
+.idea
+node_modules
+package-lock.json
+coverage
+.vercel
+storybook-static
+/packages/*/cjs
+/packages/*/esm
+/packages/*/docs

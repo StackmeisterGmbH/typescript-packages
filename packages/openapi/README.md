@@ -1,0 +1,6 @@
+@stackmeister/skeleton
+======================
+
+# Install
+
+# Use

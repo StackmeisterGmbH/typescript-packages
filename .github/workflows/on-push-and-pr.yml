@@ -1,0 +1,49 @@
+name: On Push and PR
+
+on:
+  push:
+    branches-ignore: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release:
+    name: Test Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          cache: yarn
+      - name: Install Dependencies
+        run: yarn --frozen-lockfile
+      - name: Check Workspace
+        run: yarn nx workspace-lint
+      - name: Check Changed Packages
+        run: yarn lint:changed
+      - name: Build Changed Packages
+        run: yarn build:changed
+      - name: Test Changed Packages
+        run: yarn test:changed
+#      - name: Collect Test Coverage
+#        run: yarn coverage:json:collect
+      - id: findPr
+        name: Find open PR for branch
+        uses: jwalton/gh-find-current-pr@v1
+      # - uses: ArtiomTr/jest-coverage-report-action@v2
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     package-manager: yarn
+      #     coverage-file: ./coverage/coverage-final.json
+      #     base-coverage-file: ./coverage/coverage-final.json
+      #     skip-step: all
+      #     prnumber: ${{ steps.findPr.outputs.number }}
+      #     annotations: all

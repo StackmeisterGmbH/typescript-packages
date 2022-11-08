@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "module": "ES2020",
+    "moduleResolution": "node",
+    "target": "ES6",
+    "declaration": true,
+    "lib": [
+      "dom",
+      "ES2021",
+      "esnext.asynciterable",
+      "dom.iterable"
+    ],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedParameters": true,
+    "downlevelIteration": true,
+    "strict": true,
+    "types": [
+      "jest",
+      "node"
+    ],
+    "allowJs": true
+  },
+  "exclude": [
+    "dist",
+    "tests",
+    "**/*.test.tsx",
+    "**/*.test.ts"
+  ]
+}

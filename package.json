@@ -1,0 +1,37 @@
+{
+  "name": "stackmeister",
+  "description": "Stackmeister GmbH TypeScript Package Monorepo (Public)",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "build:changed": "nx affected --target=build --parallel=5 --base=origin/main",
+    "build:all": "nx run-many --target=build --parallel=5",
+    "lint:changed": "nx affected --target=lint --parallel=5 --base=origin/main",
+    "test:changed": "nx affected --target=test --parallel=5 --base=origin/main",
+    "coverage:json:collect": "istanbul report --dir coverage --include packages/*/coverage/coverage-final.json json",
+    "coverage:report:collect": "istanbul report --dir coverage --include packages/*/coverage/coverage-final.json lcov",
+    "coverage:report:open": "open-cli coverage/lcov-report/index.html"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@nrwl/devkit": "^14.5.10",
+    "@nrwl/jest": "14.5.10",
+    "@nrwl/nx-cloud": "latest",
+    "@nrwl/workspace": "^14.5.10",
+    "@types/jest": "27.4.1",
+    "@types/node": "latest",
+    "istanbul": "^0.4.5",
+    "jest": "27.5.1",
+    "lerna": "^5.5.1",
+    "nx": "14.5.10",
+    "open-cli": "^7.0.1",
+    "ts-jest": "27.1.4",
+    "ts-node": "10.9.1",
+    "yarn": "latest"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}
