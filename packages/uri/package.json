@@ -33,7 +33,9 @@
     "typescript": "^4.8.4"
   },
   "repository": {
-    "url": "git://github.com/StackmeisterGmbH/typescript-packages"
+    "url": "git://github.com/StackmeisterGmbH/typescript-packages",
+    "type": "git",
+    "directory": "packages/uri"
   },
   "publishConfig": {
     "access": "public"

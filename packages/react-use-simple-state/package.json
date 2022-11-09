@@ -38,7 +38,9 @@
     "react": ">=16.9.0"
   },
   "repository": {
-    "url": "git://github.com/StackmeisterGmbH/typescript-packages"
+    "url": "git://github.com/StackmeisterGmbH/typescript-packages",
+    "type": "git",
+    "directory": "packages/react-use-simple-state"
   },
   "publishConfig": {
     "access": "public"

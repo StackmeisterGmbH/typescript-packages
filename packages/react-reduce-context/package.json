@@ -60,7 +60,9 @@
     "react": "^18.2.0"
   },
   "repository": {
-    "url": "git://github.com/StackmeisterGmbH/typescript-packages"
+    "url": "git://github.com/StackmeisterGmbH/typescript-packages",
+    "type": "git",
+    "directory": "packages/react-reduce-context"
   },
   "publishConfig": {
     "access": "public"
