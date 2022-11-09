@@ -21,6 +21,11 @@ jobs:
           cache: yarn
       - name: Configure NX Caches
         uses: nrwl/nx-set-shas@v2
+      - name: Authenticate NPM Registries
+        run: |
+          npm config set "@stackmeister:registry" "https://registry.npmjs.org/"
+          npm config set "//registry.npmjs.org/:_authToken" "${{ secrets.PUBLIC_NPM_REGISTRY_TOKEN }}"
+          npm config set "//registry.npmjs.org/:always-auth" "true"
       - name: Install Dependencies
         run: yarn
       - name: Build Changed Packages
