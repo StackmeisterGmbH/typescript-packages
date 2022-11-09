@@ -13,17 +13,14 @@
     "upgrade:latest": "npx npm-check-updates -u"
   },
   "dependencies": {
-    "@stackmeister/unit": "^0.2.3",
-    "@stackmeister/react-use-ssr-state": "^0.0.1",
-    "@stackmeister/react-use-reactive-ref": "^0.0.1",
+    "@rwalkling/utils": "^1.7.0",
     "@stackmeister/react-use-media-query-match": "^0.1.3",
-    "@rwalkling/utils": "^1.7.0"
+    "@stackmeister/react-use-reactive-ref": "^0.0.1",
+    "@stackmeister/react-use-ssr-state": "^0.0.1",
+    "@stackmeister/unit": "^0.2.3"
   },
   "devDependencies": {
     "@rwalkling/typekit": "^1.4.0",
-    "ts-toolbelt": "^9.6.0",
-    "type-fest": "^3.2.0",
-
     "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^29.2.2",
     "@types/node": "^18.11.9",
@@ -40,6 +37,7 @@
     "react-test-renderer": "^18.2.0",
     "serve": "^14.1.1",
     "ts-jest": "^29.0.3",
+    "ts-toolbelt": "^9.6.0",
     "typedoc": "^0.23.20",
     "typescript": "^4.8.4"
   },

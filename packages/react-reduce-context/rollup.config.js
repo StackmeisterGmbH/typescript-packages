@@ -1,3 +1,3 @@
-import { createProject } from "../../rollup.config"
+import { createProject } from '../../rollup.config'
 
 export default createProject()

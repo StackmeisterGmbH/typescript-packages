@@ -45,17 +45,17 @@ export type StringSchema = StringTypeSchema | SplitProps<Pick<SchemaObject, Stri
 export type ObjectSchema = ObjectTypeSchema | SplitProps<Pick<SchemaObject, ObjectProperties>>
 
 export type ObjectSchemaProperties<SchemaType extends ObjectSchema> = SchemaType extends {
-  properties: infer Properties
+  properties: infer Properties extends { [key: string]: Schema }
 }
   ? { [Key in keyof Properties]: SchemaValue<Properties[Key]> }
-  : SchemaType extends { additionalProperties: infer AdditionalProperty }
+  : SchemaType extends { additionalProperties: infer AdditionalProperty extends Schema }
   ? Record<string, SchemaValue<AdditionalProperty>>
-  : SchemaType extends { patternProperties: infer PatternProperty }
+  : SchemaType extends { patternProperties: infer PatternProperty extends Schema }
   ? Record<string, SchemaValue<PatternProperty>>
   : Record<string, unknown>
 
 export type ArraySchemaItems<SchemaType extends ArraySchema> = SchemaType extends {
-  items: infer Item
+  items: infer Item extends Schema
 }
   ? SchemaValue<Item>[]
   : unknown[]
@@ -75,17 +75,20 @@ export type SchemaValue<SchemaType extends Schema> = SchemaType extends true
   : SchemaType extends { enum: ReadonlyArray<infer EnumValue> }
   ? EnumValue
   : SchemaType extends
-      | { oneOf: ReadonlyArray<infer Schemas> }
-      | { anyOf: ReadonlyArray<infer Schemas> }
+      | { oneOf: ReadonlyArray<infer Schemas extends Schema[]> }
+      | { anyOf: ReadonlyArray<infer Schemas extends Schema[]> }
   ? SchemaValue<Schemas>
-  : SchemaType extends { allOf: ReadonlyArray<infer Schemas> }
+  : SchemaType extends { allOf: ReadonlyArray<infer Schemas extends Schema[]> }
   ? UnionToIntersection<SchemaValue<Schemas>>
-  : SchemaType extends { then: infer ThenValue; else: infer ElseValue }
-  ? ThenValue | ElseValue
-  : SchemaType extends { then: infer ThenValue }
-  ? ThenValue
-  : SchemaType extends { else: infer ElseValue }
-  ? ElseValue
+  : SchemaType extends {
+      then: infer ThenValue extends Schema
+      else: infer ElseValue extends Schema
+    }
+  ? SchemaValue<ThenValue | ElseValue>
+  : SchemaType extends { then: infer ThenValue extends Schema }
+  ? SchemaValue<ThenValue>
+  : SchemaType extends { else: infer ElseValue extends Schema }
+  ? SchemaValue<ElseValue>
   : SchemaType extends NullTypeSchema
   ? null
   : SchemaType extends BooleanTypeSchema

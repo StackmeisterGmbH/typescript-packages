@@ -5,7 +5,7 @@
   "main": "cjs/index.js",
   "types": "cjs/index.d.ts",
   "scripts": {
-    "build": "rollup -c && tsc --emitDeclarationOnly && tsc --emitDeclarationOnly --declarationDir cjs",
+    "build": "rollup -c --bundleConfigAsCjs && tsc --emitDeclarationOnly && tsc --emitDeclarationOnly --declarationDir cjs",
     "test": "jest --passWithNoTests --collectCoverage",
     "lint": "eslint \"src/**/*.ts\"",
     "lint:fix": "eslint \"src/**/*.ts\" --fix",
