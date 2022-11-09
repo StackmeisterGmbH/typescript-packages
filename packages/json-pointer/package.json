@@ -1,6 +1,6 @@
 {
   "name": "@stackmeister/json-pointer",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "license": "MIT",
   "main": "cjs/index.js",
   "types": "cjs/index.d.ts",

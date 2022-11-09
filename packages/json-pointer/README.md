@@ -1,5 +1,5 @@
 @stackmeister/json-pointer
-==============================
+==========================
 
 Utilities for JSON-pointers.
 
@@ -20,9 +20,12 @@ Usage
 =====
 
 ```ts
-import { get, set } from '@stackmeister/json-pointer'
+import { get, set, remove } from '@stackmeister/json-pointer'
 
-const value = get('/someProperty/2', { someProperty: ['a', 'b', 'c', 'd'] }) // "c"
+get('/someProperty/2', { someProperty: ['a', 'b', 'c', 'd'] }) // "c"
 
-const newValue = set('/a/b', { a: { b: 2 } }, 5) // { a: { b: 5 } }
+set('/a/b', { a: { b: 2 } }, 5) // { a: { b: 5 } }
+
+remove('/a/b', { a: { b: 2, c: 3 } }) // { a: { c: 3 } }
 ```
+

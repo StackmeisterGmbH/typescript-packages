@@ -1,55 +1,46 @@
-@stackmeister/react-use-merged-ref
-======================================
+@stackmeister/react-use-intersection-observer
+=============================================
 
-Got multiple refs from hooks or own `useRef` calls, but you can only pass one to an element?
+A hook that wraps around the DOM IntersectionObserver.
 
-This library can merge multiple refs of the same type into one.
+With it you can check things like "for how many percent is this element in that element"
+or "am I scrolled half over this element".
+
+Install
+=======
+
+```bash
+// Yarn
+yarn add @stackmeister/react-use-intersection-observer
+
+// NPM
+npm i @stackmeister/react-use-intersection-observer
+```
+
+TypeScript typings are included (No `@types/` package needed)
 
 Usage
 =====
 
-### Basic Usage
-
-
 ```tsx
-import useMergedRef from '@stackmeister/react-use-merged-ref'
+import useIntersectionObserver from '@stackmeister/react-use-intersection-observer'
 
 const App = () => {
-  const scrollingRef = useScrolling()
-  const { ref: touchRef } = useTouchControls()
-  const { calc, ref: calcRef } = useCalc()
-  const ref = useMergedRef(scrollingRef, touchRef, calcRef)
+  const { ref, entry } = useIntersectionObserver()
+
+  // entry =
+  // {
+  //   boundingClientRect: DOMRect,
+  //   intersectionRatio: number,
+  //   intersectionRect: DOMRect,
+  //   isIntersecting: boolean,
+  //   rootBounds: DOMRect,
+  //   time: number,
+  // }
 
   return (
     <div ref={ref}>
-      Hello World!
-    </div>
-  )
-}
-```
-
-### Easy to encapsulate
-
-```tsx
-import useMergedRef from '@stackmeister/react-use-merged-ref'
-
-const useAppThings = () => {
-  const scrollingRef = useScrolling()
-  const { ref: touchRef } = useTouchControls()
-  const { calc, ref: calcRef } = useCalc()
-
-  return {
-    calc,
-    ref: useMergedRef(scrollingRef, touchRef, calcRef)
-  }
-}
-
-const App = () => {
-  const { calc, ref } = useAppThings()
-
-  return (
-    <div ref={ref}>
-      Hello World!
+      ...
     </div>
   )
 }

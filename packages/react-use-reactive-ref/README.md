@@ -1,43 +1,26 @@
-@stackmeister/react-use-calc
-================================
+@stackmeister/react-use-reactive-ref
+====================================
 
-Provides a CSS-like `calc`-function in React with support for all CSS units.
+> TBD
+
+Install
+=======
+
+```bash
+// Yarn
+yarn add @stackmeister/react-use-reactive-ref
+
+// NPM
+npm i @stackmeister/react-use-reactive-ref
+```
+
+TypeScript typings are included (No `@types/` package needed)
 
 Usage
 =====
 
-### Normal usage
-
 ```tsx
-import useCalc from '@stackmeister/react-use-calc'
+import useReactiveRef from '@stackmeister/react-use-reactive-ref'
 
-const App = () => {
-  const { calc } = useCalc()
-
-  return (
-    <div style={{ width: calc`100vw - 12px` }}>
-      Hello World!
-    </div>
-  )
-}
-```
-
-### With a reference element
-
-With a reference element, units like `em` and `%` will be bound to the referenced element.
-
-```tsx
-import useCalc from '@stackmeister/react-use-calc'
-
-const App = () => {
-  const { calc, ref } = useCalc()
-
-  return (
-    <div ref={ref}>
-      <div style={{ height: calc`50% - 2em` }}>
-        Hello World!
-      </div>
-    </div>
-  )
-}
+// TBD
 ```

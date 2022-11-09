@@ -7,6 +7,8 @@ It helps elements deep inside the DOM to break out of it
 and avoid z-index fuckery when creating modals, dialogs, tooltips,
 tutorial markers etc.
 
+Create modals and tooltips from wherever you are in your components!
+
 It is using React Portals, some DOM-manipulation, but no CSS. Positioning
 etc. is up to your app. The OverlayPortal will just help you to break
 out of the DOM.

@@ -1,7 +1,20 @@
 @stackmeister/class-names
-=====================
+=========================
 
-CSS class concatenation utility
+A class name concatenation utility for UI building.
+
+Install
+=======
+
+```bash
+// Yarn
+yarn add @stackmeister/class-names
+
+// NPM
+npm i @stackmeister/class-names
+```
+
+TypeScript typings are included (No `@types/` package needed)
 
 Usage
 =====

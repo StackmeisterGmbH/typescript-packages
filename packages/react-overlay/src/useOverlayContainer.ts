@@ -1,33 +1,37 @@
 import { useEffect, useMemo } from 'react'
 
 export type OverlayContainerOptions = {
-  element?: 'div'
-  attributes?: { [key: string]: string }
+  readonly tagName?: 'div'
+  readonly attributes?: { readonly [key: string]: string }
+  readonly target?: HTMLElement
 }
 
 const defaultAttributes = {}
 
 const useOverlayContainer = ({
-  element = 'div',
+  tagName = 'div',
   attributes = defaultAttributes,
-}: OverlayContainerOptions = {}) => {
+  target = globalThis.document?.body,
+}: OverlayContainerOptions = {}): HTMLElement | undefined => {
   const containerElement = useMemo(() => {
-    const el = document.createElement(element)
-    Object.entries(attributes).forEach(([key, value]) => el.setAttribute(key, value))
-    return el
-  }, [attributes])
-
-  useEffect(() => {
     if (!('document' in globalThis)) {
       return
     }
+    const element = document.createElement(tagName)
+    Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, value))
+    return element
+  }, [attributes])
 
-    document.body.appendChild(containerElement)
-
+  useEffect(() => {
+    if (!containerElement || !target) {
+      return
+    }
+    target.appendChild(containerElement)
     return () => {
-      containerElement.parentNode?.removeChild(containerElement)
+      target.removeChild(containerElement)
     }
   }, [containerElement])
+
   return containerElement
 }
 

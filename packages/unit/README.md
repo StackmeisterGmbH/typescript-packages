@@ -1,5 +1,5 @@
 @stackmeister/unit
-======================
+==================
 
 Unit conversion library
 

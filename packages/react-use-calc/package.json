@@ -1,6 +1,6 @@
 {
   "name": "@stackmeister/react-use-calc",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "license": "MIT",
   "main": "cjs/index.js",
   "types": "cjs/index.d.ts",
@@ -13,7 +13,6 @@
     "upgrade:latest": "npx npm-check-updates -u"
   },
   "dependencies": {
-    "@rwalkling/utils": "^1.7.0",
     "@stackmeister/react-use-media-query-match": "^0.1.4",
     "@stackmeister/react-use-reactive-ref": "^0.0.5",
     "@stackmeister/react-use-ssr-state": "^0.0.4",

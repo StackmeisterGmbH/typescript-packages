@@ -1,9 +1,11 @@
 @stackmeister/react-reduce-context
-======================================
+==================================
 
 Poor mans redux.
 
 Whenever Redux feels like too much for now.
+
+It's context based state management with some helpers.
 
 Install
 =======

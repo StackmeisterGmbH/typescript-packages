@@ -31,7 +31,7 @@ Notice the input value doesn't have to be a JSON-Schema! Dereferencing can be us
 JavaScript value freely.
 
 ```ts
-import type { deref } from '@stackmeister/json-ref'
+import { deref } from '@stackmeister/json-ref'
 
 const user = {
   properties: {

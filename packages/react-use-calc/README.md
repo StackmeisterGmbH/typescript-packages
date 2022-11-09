@@ -1,7 +1,20 @@
 @stackmeister/react-use-calc
-================================
+============================
 
 Provides a CSS-like `calc`-function in React with support for all CSS units.
+
+Install
+=======
+
+```bash
+// Yarn
+yarn add @stackmeister/react-use-calc
+
+// NPM
+npm i @stackmeister/react-use-calc
+```
+
+TypeScript typings are included (No `@types/` package needed)
 
 Usage
 =====

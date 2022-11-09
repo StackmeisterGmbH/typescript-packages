@@ -110,7 +110,7 @@ Notice the validator isn't async to maintain fast speeds.
 This is why you need to dereference the schema and resolve all `$ref` properties prior
 to validating against the schema manually.
 
-This is not done for you so that you can cache the dereferenced schema where need. After that
+This is not done for you so that you can cache the dereferenced schema where needed. After that
 point no waiting for IO is involved anymore.
 
 ```ts
@@ -135,7 +135,7 @@ deref(schema)
 
     const result = validateBasic(resolvedSchema, valueToValidate) // Not async anymore!
     if (!result.valid) {
-      throw new Error(`Failidation failed!`)
+      throw new Error(`Validation failed!`)
     }
   })
 ```

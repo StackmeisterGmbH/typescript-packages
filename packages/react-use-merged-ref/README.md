@@ -1,9 +1,22 @@
 @stackmeister/react-use-merged-ref
-======================================
+==================================
 
 Got multiple refs from hooks or own `useRef` calls, but you can only pass one to an element?
 
 This library can merge multiple refs of the same type into one.
+
+Install
+=======
+
+```bash
+// Yarn
+yarn add @stackmeister/react-use-merged-ref
+
+// NPM
+npm i @stackmeister/react-use-merged-ref
+```
+
+TypeScript typings are included (No `@types/` package needed)
 
 Usage
 =====

@@ -1,5 +1,5 @@
 @stackmeister/uri
-=====================
+=================
 
 A small set of URI utility functions.
 

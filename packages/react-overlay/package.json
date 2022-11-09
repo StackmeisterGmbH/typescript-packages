@@ -1,6 +1,6 @@
 {
   "name": "@stackmeister/react-overlay",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "license": "MIT",
   "main": "cjs/index.js",
   "types": "cjs/index.d.ts",
@@ -13,8 +13,8 @@
     "upgrade:latest": "npx npm-check-updates -u"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0"
   },
   "devDependencies": {
     "@types/jest": "^29.2.2",

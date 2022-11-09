@@ -1,5 +1,5 @@
 @stackmeister/types
-=======================
+===================
 
 Minimalistic and strict utility functions for JavaScript's primitive types.
 

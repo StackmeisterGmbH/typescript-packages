@@ -1,7 +1,20 @@
 @stackmeister/equals
-========================
+====================
 
 A small function to check for deep, strict and structural equality.
+
+Install
+=======
+
+```bash
+// Yarn
+yarn add @stackmeister/equals
+
+// NPM
+npm i @stackmeister/equals
+```
+
+TypeScript typings are included (No `@types/` package needed)
 
 Usage
 =====
