@@ -1,6 +1,6 @@
 {
   "name": "@stackmeister/react-use-uncontrolled",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "main": "cjs/index.js",
   "types": "cjs/index.d.ts",
@@ -13,7 +13,7 @@
     "upgrade:latest": "npx npm-check-updates -u"
   },
   "dependencies": {
-    "@stackmeister/react-use-reactive-ref": "^0.0.4",
+    "@stackmeister/react-use-reactive-ref": "^0.0.5",
     "@stackmeister/react-use-simple-state": "^0.0.4",
     "@stackmeister/react-use-stable": "^0.0.4",
     "@stackmeister/react-use-state-with-equals": "^0.0.4"
