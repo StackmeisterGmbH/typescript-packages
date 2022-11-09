@@ -17,7 +17,7 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: "16.x"
+          node-version: "18.x"
           cache: yarn
       - name: Configure NX Caches
         uses: nrwl/nx-set-shas@v2
@@ -29,7 +29,7 @@ jobs:
       - name: Install Dependencies
         run: yarn
       - name: Build Changed Packages
-        run: yarn nx affected --target=build --parallel=5
+        run: yarn build:all
       - name: Release Changed Packages
         run: |
           yarn lerna publish from-package --yes

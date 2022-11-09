@@ -13,6 +13,9 @@ jobs:
   release:
     name: Test Packages
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [12, 14, 16, 18]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -21,7 +24,7 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v3
         with:
-          node-version: "16.x"
+          node-version: ${{ matrix.version }}
           cache: yarn
       - name: Install Dependencies
         run: yarn --frozen-lockfile
