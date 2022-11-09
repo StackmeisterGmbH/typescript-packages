@@ -19,7 +19,6 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.20.1",
-    "@fortawesome/react-fontawesome": "^0.2.0",
     "react": "^18.2.0"
   },
   "devDependencies": {
@@ -58,7 +57,6 @@
     "typedoc": "^0.23.20",
     "typescript": "^4.8.4",
     "@babel/runtime": "^7.20.1",
-    "@fortawesome/react-fontawesome": "^0.2.0",
     "react": "^18.2.0"
   },
   "repository": {
