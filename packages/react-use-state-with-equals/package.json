@@ -1,6 +1,6 @@
 {
   "name": "@stackmeister/react-use-state-with-equals",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "main": "cjs/index.js",
   "types": "cjs/index.d.ts",
