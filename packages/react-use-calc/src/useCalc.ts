@@ -51,13 +51,14 @@ const useCalc = <ElementType extends HTMLElement>(
   const [system, setSystem] = useState<SystemTop>(createCssSystem(options))
 
   const calc = useMemo(() => createCalculator(system), [system])
+  const pixelRatio = globalThis.devicePixelRatio ?? 1
 
   // rerender component when pixel ratio changes
-  useMediaQueryMatch(`(resolution: ${globalThis.devicePixelRatio ?? 1}dppx)`)
+  useMediaQueryMatch(`(resolution: ${pixelRatio}dppx)`)
 
   const updateSystem = useCallback(
-    () => setSystem(extractCssSystem(inspect.current, devicePixelRatio, options)),
-    [inspect.current, devicePixelRatio, options],
+    () => setSystem(extractCssSystem(inspect.current, pixelRatio, options)),
+    [inspect.current, pixelRatio, options],
   )
 
   useLayoutEffect(() => {
