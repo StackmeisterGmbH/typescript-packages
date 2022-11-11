@@ -54,7 +54,7 @@ import {
 } from './schemes'
 import { isSpace } from './spaces'
 import toString from './toString'
-import toJson from './toJSON'
+import toJson from './toJson'
 
 export class ColorBuilder {
   constructor(public readonly color: Color) {}
