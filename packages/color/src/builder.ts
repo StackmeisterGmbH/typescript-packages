@@ -54,9 +54,18 @@ import {
 } from './schemes'
 import { isSpace } from './spaces'
 import toString from './toString'
+import toJson from './toJSON'
 
 export class ColorBuilder {
   constructor(public readonly color: Color) {}
+
+  get space() {
+    return this.color.space
+  }
+
+  get data() {
+    return this.color.data
+  }
 
   get red() {
     return getRed(this.color)
@@ -296,5 +305,9 @@ export class ColorBuilder {
 
   public toString() {
     return toString(this.color)
+  }
+
+  public toJSON() {
+    return toJson(this.color)
   }
 }
