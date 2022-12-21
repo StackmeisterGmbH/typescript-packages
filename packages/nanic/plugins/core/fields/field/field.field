@@ -1,0 +1,5 @@
+name: field
+description: A field that contains a field definition
+fields:
+  description:
+    description: Description of the field

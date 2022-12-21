@@ -1,0 +1,17 @@
+name: nanic/core
+version: 0.1.0
+description: Core plugin for nanic
+author: Stackmeister GmbH
+license: MIT
+
+resources:
+  - in: resources
+    
+queryprops:
+  - in: queryprops
+
+fields:
+  - in: fields
+
+blocks:
+  - in: blocks

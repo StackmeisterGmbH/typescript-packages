@@ -1,0 +1,7 @@
+name: meta
+description: Meta block
+fields:
+  title:
+    description: Page title
+  description:
+    description: Page description

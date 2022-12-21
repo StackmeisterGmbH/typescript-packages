@@ -1,0 +1,9 @@
+name: blocks
+description: A list of blocks
+fields:
+  blocks:
+    description: Blocks
+    type: list
+    of:
+      type: block
+      required: true

@@ -1,0 +1,7 @@
+name: text
+description: Text block
+fields:
+  - name: content
+    description: Content
+    type: string
+    required: true

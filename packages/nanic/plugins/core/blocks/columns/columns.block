@@ -1,0 +1,9 @@
+name: columns
+description: Horizontally split layout
+fields:
+  columns:
+    description: Columns
+    type: list
+    of:
+      type: blocks
+      required: true

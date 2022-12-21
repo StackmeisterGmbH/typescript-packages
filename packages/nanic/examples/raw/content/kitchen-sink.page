@@ -1,0 +1,17 @@
+title: Kitchen Sink
+description: This is a parent page. It has child pages.
+
+---
+
+block: navigation
+at: main
+
+---
+
+block: hero
+title: Awesome Nanic Kitchen Sink!
+
+---
+
+text: >
+  Check out all the cool things.

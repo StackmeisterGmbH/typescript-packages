@@ -1,0 +1,7 @@
+title: Some Child
+description: This is a child page for testing. It's great!
+
+---
+
+block: navigation
+at: main

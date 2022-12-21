@@ -1,0 +1,13 @@
+name: structure
+description: A structure that can have keys and values for these keys.
+fields:
+  description:
+    description: Description of the field
+  fields:
+    type: structure
+    description: The fields of a structure when used as a structured object
+    of:
+      type: field
+  of:
+    type: field
+    description: The type of the values in the structure when used as a map

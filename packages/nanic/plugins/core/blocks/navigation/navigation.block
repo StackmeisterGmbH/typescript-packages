@@ -1,0 +1,13 @@
+name: navigation
+description: Navigation block
+fields:
+  - name: at
+    description: Location
+    options:
+      type: query
+      query: 
+        resource: navigation
+        ofKind: navigation
+      value: path
+      label: data.title
+    required: true

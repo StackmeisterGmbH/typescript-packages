@@ -1,0 +1,5 @@
+name: admin
+email: admin@example.com
+password:
+  type: raw
+  value: admin

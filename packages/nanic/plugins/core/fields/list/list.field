@@ -1,0 +1,8 @@
+name: list
+description: A list of values.
+fields:
+  description:
+    description: Description of the field
+  of:
+    type: field
+    description: The type of the values in the list

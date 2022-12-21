@@ -1,0 +1,40 @@
+# Will automatically infer "type: meta"
+title: Homepage
+description: This is a cool home page.
+
+---
+
+block: navigation
+at: main
+
+---
+
+block: hero
+title: Welcome to my home page!
+
+---
+
+# Will automatically infer "type: text"
+text: >
+  This is some random content that is here.
+
+  This is **bold** and this is *italic*.
+
+  This is simply [Markdown](https://www.markdownguide.org/).
+
+---
+
+block: columns
+columns:
+  - type: card
+    title: Card 1
+    content: |
+      This is some random content that is here.
+  - type: card
+    title: Card 2
+    content: |
+      This is some random content that is here.
+  - type: card
+    title: Card 3
+    content: |
+      This is some random content that is here.

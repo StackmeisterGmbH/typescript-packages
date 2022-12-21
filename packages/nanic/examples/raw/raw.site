@@ -1,0 +1,17 @@
+name: raw
+
+title: Nanic Minimal Example
+
+path: /
+
+pages:
+  - in: content
+
+users:
+  - in: users
+
+plugins:
+  - core
+  - editor
+  - in: plugins
+

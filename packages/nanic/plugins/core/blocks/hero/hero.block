@@ -1,0 +1,5 @@
+name: hero
+description: Hero block
+fields:
+  title:
+    description: Title

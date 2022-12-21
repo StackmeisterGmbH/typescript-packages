@@ -1,0 +1,9 @@
+name: nanic/editor
+
+title: Nanic Editor
+
+endpoints:
+  - in: endpoints
+
+javascripts:
+  - in: javascripts

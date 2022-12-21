@@ -1,0 +1,7 @@
+name: text
+description: A simple text field.
+fields:
+  description:
+    description: Description of the field
+  placeholder:
+    description: Placeholder for the text field

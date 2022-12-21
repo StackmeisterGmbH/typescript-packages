@@ -1,0 +1,10 @@
+title: Main Navigation
+
+items:
+  - title: Home
+    page: home
+  - title: Kitchen Sink
+    page: kitchen-sink
+    items:
+      - title: Some Child
+        page: kitchen-sink/some-child

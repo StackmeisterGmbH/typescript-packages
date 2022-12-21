@@ -1,0 +1,5 @@
+name: resource
+description: A reference to a resource
+fields:
+  description:
+    description: Description of the field
