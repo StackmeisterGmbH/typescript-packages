@@ -8,17 +8,15 @@ const log = debug('nanic:loaders:loadResourceFile')
 
 export const loadResourceFile = async ({
   registry,
-  root,
+  baseUrl,
   path,
   resourceType,
-  level = 0,
 }: LoadOptions): Promise<void> => {
-  log(`${'-'.repeat(level)}Loading '%s' documents in [%s] from [%s]`, resourceType, path, root)
-  const url = await resolveResourceUrl(root, path, resourceType)
-
-  const resourceDocument = registry.resources[resourceType]?.document
+  log(`Loading '%s' documents in [%s] from [%s]`, resourceType, path, baseUrl)
+  const url = await resolveResourceUrl(baseUrl, path, resourceType)
+  const document = registry.resources[resourceType]?.document
   const loader =
-    resourceDocument?.loader ??
+    document?.loader ??
     (registry.resources?.resource?.document?.loader as Record<string, unknown>)?.default ??
     'yaml'
 
@@ -29,10 +27,9 @@ export const loadResourceFile = async ({
         documents.map((document, index) =>
           loadDocument(document, url, index, {
             registry,
-            root,
+            baseUrl,
             path,
             resourceType,
-            level: level + 1,
           }),
         ),
       )
@@ -41,10 +38,9 @@ export const loadResourceFile = async ({
       const exports = await import(url.toString())
       await loadDocument({ exports }, url, 0, {
         registry,
-        root,
+        baseUrl,
         path,
         resourceType,
-        level: level + 1,
       })
       break
     default:

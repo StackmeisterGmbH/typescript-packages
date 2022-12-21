@@ -1,11 +1,3 @@
-import { isArray, isObject, isString } from '@stackmeister/types'
-import { watch as createWatcher } from 'node:fs/promises'
-import { dirname, relative } from 'node:path'
-import debug from 'debug'
-import { fileURLToPath, pathToFileURL } from 'node:url'
-
-const log = debug('nanic:common')
-
 export const bundledPluginsPath = new URL('../plugins/', import.meta.url)
 
 export type Path = string
@@ -31,23 +23,10 @@ export type Registry = Record<ResourceType, Record<string, ResourceEntry>>
 
 export type LoadOptions = {
   readonly registry: Registry
-  readonly root: URL
+  readonly baseUrl: URL
   readonly path: Path
   readonly resourceType: ResourceType
-  readonly level?: number
-  readonly watch?: boolean
-  readonly watchAbortSignal?: AbortSignal
 }
-
-export type Loader = {
-  readonly reload: () => Promise<void>
-}
-
-export const combineLoaders = (loaders: Loader[]): Loader => ({
-  reload: async () => {
-    await Promise.all(loaders.map(host => host.reload()))
-  },
-})
 
 export const createMinimumViableRegistry = (): Registry => ({
   sites: {},

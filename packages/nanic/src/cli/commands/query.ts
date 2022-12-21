@@ -12,7 +12,7 @@ const registerQueryCommand = (app: Command) =>
     .argument('<expression>', 'The query to run')
     .option('-c, --colors', 'Enable colors')
     .action(async (path, expression, options) => {
-      const host = await createHost({ root: pathToFileURL(process.cwd()), sitePaths: [path] })
+      const host = await createHost({ baseUrl: pathToFileURL(process.cwd()), sitePaths: [path] })
       const result = await host.query(expression)
       if (result === undefined) {
         console.log('> No result <')

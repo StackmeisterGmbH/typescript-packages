@@ -1,33 +1,31 @@
 import type { IncomingMessage, ServerResponse } from 'http'
-import { createMinimumViableRegistry, createResourceFileLoader } from './common.js'
+import { createMinimumViableRegistry } from './common.js'
 import debug from 'debug'
 import { createQueryHost } from './query.js'
 import { isFunction, isObject } from '@stackmeister/types'
 import { match } from 'path-to-regexp'
+import { loadResourceFile } from './loaders/loadResourceFile.js'
 
 const log = debug('nanic:host')
 
 export type HostOptions = {
-  readonly root: URL
+  readonly baseUrl: URL
   readonly sitePaths: string[]
   readonly watch?: boolean
 }
 
-export const createHost = async ({ root, sitePaths, watch }: HostOptions) => {
-  log('Creating host in %s for %o', root, sitePaths)
+export const createHost = async ({ baseUrl, sitePaths, watch }: HostOptions) => {
+  log('Creating host in %s for %o', baseUrl, sitePaths)
   const registry = createMinimumViableRegistry()
 
   log('Initializing registry...')
-  const abortController = new AbortController()
   await Promise.all(
     sitePaths.map(path =>
-      createResourceFileLoader({
+      loadResourceFile({
         registry,
-        root,
+        baseUrl,
         path,
         resourceType: 'site',
-        watch,
-        watchAbortSignal: abortController.signal,
       }),
     ),
   )

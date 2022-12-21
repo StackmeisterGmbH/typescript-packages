@@ -11,7 +11,7 @@ const registerDumpCommand = (app: Command) =>
     .argument('<path>', 'Path to the Nanic CMS Site file or folder')
     .option('-c, --colors', 'Enable colors')
     .action(async (path, options) => {
-      const host = await createHost({ root: pathToFileURL(process.cwd()), sitePaths: [path] })
+      const host = await createHost({ baseUrl: pathToFileURL(process.cwd()), sitePaths: [path] })
       const yaml = stringify(JSON.parse(JSON.stringify(host.getRegistry())))
       console.log(
         options.colors ? highlight(yaml, { language: 'yaml', ignoreIllegals: true }) : yaml,

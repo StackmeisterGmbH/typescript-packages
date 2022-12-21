@@ -12,7 +12,7 @@ const registerServeCommand = (app: Command) =>
     .action(async (path, options) => {
       console.log(`Creating Nanic Host for site ${path}`)
       const host = await createHost({
-        root: pathToFileURL(process.cwd()),
+        baseUrl: pathToFileURL(process.cwd()),
         sitePaths: [path],
         watch: options.watch,
       })

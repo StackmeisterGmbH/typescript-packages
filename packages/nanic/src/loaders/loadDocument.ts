@@ -1,7 +1,8 @@
-import type { LoadOptions, Document } from '../common.js'
-import { isObject, isString } from '@stackmeister/types'
+import type { LoadOptions, Document, DocumentMeta } from '../common.js'
+import { isObject } from '@stackmeister/types'
 import debug from 'debug'
 import loadExtensions from './loadExtensions.js'
+import getCollectionForResourceType from '../utils/registry/getCollectionForResourceType.js'
 
 const log = debug('nanic:loaders:loadDocument')
 
@@ -9,9 +10,9 @@ const loadDocument = async (
   document: unknown,
   url: URL,
   index: number,
-  { registry, resourceType, path, level = 0 }: LoadOptions,
+  { registry, resourceType, path }: LoadOptions,
 ): Promise<void> => {
-  log(`%sLoading '%s' document %d in [%s]`, ' '.repeat(level), resourceType, index, url)
+  log(`Loading '%s' document %d in [%s]`, resourceType, index, url)
 
   if (!isObject(document)) {
     throw new Error(`Invalid ${resourceType} in ${url}, should be a structure.`)
@@ -25,21 +26,14 @@ const loadDocument = async (
     )
   }
 
-  const documentCollection = resourceTypeDocument.collection as string | undefined
-
-  if (!isString(documentCollection)) {
-    throw new Error(
-      `Invalid ${resourceType} in ${url}, should have a collection defined. Are you missing a resource definition for ${resourceType}?`,
-    )
-  }
-
+  const documentCollection = getCollectionForResourceType(registry, documentResourceType)
   const documentName = (document.name as string | undefined) ?? path.replace('\\', '/')
   const documentId =
     (document.id as string | undefined) ??
     (document.name as string | undefined) ??
     `${path.replace('\\', '/')}[${index}]`
 
-  const meta = {
+  const meta: DocumentMeta = {
     id: documentId,
     name: documentName,
     index,
@@ -56,7 +50,7 @@ const loadDocument = async (
   }
 
   if (registry.resources[documentResourceType]?.document.extensible) {
-    await loadExtensions(resourceType, documentId, registry, level)
+    await loadExtensions(resourceType, documentId, registry)
   }
 }
 

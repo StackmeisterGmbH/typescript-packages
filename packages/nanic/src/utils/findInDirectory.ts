@@ -5,14 +5,10 @@ import debug from 'debug'
 
 const log = debug('nanic:utils:findInDirectory')
 
-const findInDirectory = async (
-  directory: URL,
-  resourceType: ResourceType,
-  level = 0,
-): Promise<string[]> => {
+const findInDirectory = async (directory: URL, resourceType: ResourceType): Promise<string[]> => {
   const pattern = `*.${resourceType}`
   const cwd = fileURLToPath(directory)
-  log(`%sFinding '%s' in [%s] using pattern '%s'`, ' '.repeat(level), resourceType, cwd, pattern)
+  log(`Finding '%s' in [%s] using pattern '%s'`, resourceType, cwd, pattern)
   const foundFiles = await new Promise<string[]>((resolve, reject) =>
     glob(pattern, { cwd, matchBase: true, nodir: true, absolute: true }, (error, paths) => {
       if (error) {
@@ -21,7 +17,7 @@ const findInDirectory = async (
       resolve(paths)
     }),
   )
-  log(`${'-'.repeat(level)}Found %d files (%o)`, foundFiles.length, foundFiles)
+  log(`Found %d files (%o)`, foundFiles.length, foundFiles)
   return foundFiles
 }
 

@@ -15,7 +15,6 @@ const loadExtensions = async (
   resourceType: ResourceType,
   documentId: string,
   registry: Registry,
-  level = 0,
 ) => {
   const collection = registry.resources[resourceType]?.document.collection as string | undefined
   if (!collection) {
@@ -30,23 +29,13 @@ const loadExtensions = async (
   const relativeBaseUrl = sanitizeDirectoryUrl(urlDirname(documentUrl))
 
   const loadExtensions = async (resourceDocument: Record<string, unknown>) => {
-    log(
-      `${'-'.repeat(level)}Loading extensions '%s' for %s in [%s]`,
-      resourceDocument.name,
-      documentId,
-      documentUrl,
-    )
+    log(`Loading extensions '%s' for %s in [%s]`, resourceDocument.name, documentId, documentUrl)
     const entryResourceType = resourceDocument.name as string
     const collection = resourceDocument.collection as string
 
     // Document doesn't have extensions of this type
     if (!(collection in document)) {
-      log(
-        `${'-'.repeat(level)}No extensions for '%s' %s in [%s]`,
-        resourceDocument.name,
-        documentId,
-        documentUrl,
-      )
+      log(`No extensions for '%s' %s in [%s]`, resourceDocument.name, documentId, documentUrl)
       return
     }
 
@@ -58,7 +47,7 @@ const loadExtensions = async (
     }
 
     log(
-      `${'-'.repeat(level)}Loading %d extensions for '%s' %s in [%s]`,
+      `Loading %d extensions for '%s' %s in [%s]`,
       items.length,
       resourceDocument.name,
       documentId,
@@ -69,10 +58,9 @@ const loadExtensions = async (
         if (typeof item === 'string') {
           await loadResourceFile({
             registry,
-            root: bundledPluginsPath,
+            baseUrl: bundledPluginsPath,
             path: item,
             resourceType: entryResourceType,
-            level: level + 1,
           })
           return
         }
@@ -80,35 +68,27 @@ const loadExtensions = async (
         if (isFileReference(item)) {
           await loadResourceFile({
             registry,
-            root: relativeBaseUrl,
+            baseUrl: relativeBaseUrl,
             path: item.at,
             resourceType: entryResourceType,
-            level: level + 1,
           })
           return
         }
 
         if (isDirectoryReference(item)) {
           const findRoot = new URL(item.in, relativeBaseUrl)
-          const loadFromDirectory = async () => {
-            const foundPaths = await findInDirectory(findRoot, entryResourceType, level + 1)
-            await Promise.all(
-              foundPaths.map(foundPath => {
-                const relativePath = relative(fileURLToPath(findRoot), foundPath)
-                return loadResourceFile({
-                  registry,
-                  root: findRoot,
-                  path: relativePath.substring(
-                    0,
-                    relativePath.length - entryResourceType.length - 1,
-                  ),
-                  resourceType: entryResourceType,
-                  level: level + 2,
-                })
-              }),
-            )
-          }
-          await loadFromDirectory()
+          const foundPaths = await findInDirectory(findRoot, entryResourceType)
+          await Promise.all(
+            foundPaths.map(foundPath => {
+              const relativePath = relative(fileURLToPath(findRoot), foundPath)
+              return loadResourceFile({
+                registry,
+                baseUrl: findRoot,
+                path: relativePath.substring(0, relativePath.length - entryResourceType.length - 1),
+                resourceType: entryResourceType,
+              })
+            }),
+          )
           return
         }
 
