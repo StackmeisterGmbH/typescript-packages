@@ -12,7 +12,7 @@ const registerDumpCommand = (app: Command) =>
     .option('-c, --colors', 'Enable colors')
     .action(async (path, options) => {
       const host = await createHost({ baseUrl: pathToFileURL(process.cwd()), sitePaths: [path] })
-      const yaml = stringify(JSON.parse(JSON.stringify(host.getRegistry())))
+      const yaml = stringify(JSON.parse(JSON.stringify(host.registry)))
       console.log(
         options.colors ? highlight(yaml, { language: 'yaml', ignoreIllegals: true }) : yaml,
       )

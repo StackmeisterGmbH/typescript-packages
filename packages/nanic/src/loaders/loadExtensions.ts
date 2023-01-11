@@ -1,6 +1,5 @@
 import type { Registry, ResourceType } from '../common.js'
 import { isArray } from '@stackmeister/types'
-import { log } from 'debug'
 import { relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { bundledPluginsPath } from '../common.js'
@@ -10,6 +9,9 @@ import isFileReference from '../utils/isFileReference.js'
 import { loadResourceFile } from './loadResourceFile.js'
 import sanitizeDirectoryUrl from '../utils/sanitizeDirectoryUrl.js'
 import urlDirname from '../utils/urlDirname.js'
+import debug from 'debug'
+
+const log = debug('nanic:loaders:loadExtensions')
 
 const loadExtensions = async (
   resourceType: ResourceType,

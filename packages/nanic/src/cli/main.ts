@@ -12,6 +12,8 @@ program
   .hook('preAction', command => {
     if (command.opts().verbose) {
       debug.enable('nanic:*')
+    } else {
+      debug.disable()
     }
   })
 

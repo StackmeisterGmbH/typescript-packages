@@ -1,35 +1,44 @@
 import type { IncomingMessage, ServerResponse } from 'http'
-import { createMinimumViableRegistry } from './common.js'
-import debug from 'debug'
+import { createMinimumViableRegistry, Registry } from './common.js'
 import { createQueryHost } from './query.js'
 import { isFunction, isObject } from '@stackmeister/types'
 import { match } from 'path-to-regexp'
 import { loadResourceFile } from './loaders/loadResourceFile.js'
+import debug from 'debug'
 
 const log = debug('nanic:host')
 
 export type HostOptions = {
   readonly baseUrl: URL
   readonly sitePaths: string[]
-  readonly watch?: boolean
 }
 
-export const createHost = async ({ baseUrl, sitePaths, watch }: HostOptions) => {
+export type Host = {
+  readonly registry: Registry
+  readonly reload: () => Promise<void>
+  readonly handleRequest: (req: IncomingMessage, res: ServerResponse) => void
+  readonly query: ReturnType<typeof createQueryHost>['query']
+}
+
+export const createHost = async ({ baseUrl, sitePaths }: HostOptions): Promise<Host> => {
   log('Creating host in %s for %o', baseUrl, sitePaths)
   const registry = createMinimumViableRegistry()
 
-  log('Initializing registry...')
-  await Promise.all(
-    sitePaths.map(path =>
-      loadResourceFile({
-        registry,
-        baseUrl,
-        path,
-        resourceType: 'site',
-      }),
-    ),
-  )
-  log('Registry initialized')
+  const reload = async (): Promise<void> => {
+    log('Initializing registry...')
+    await Promise.all(
+      sitePaths.map(path =>
+        loadResourceFile({
+          registry,
+          baseUrl,
+          path,
+          resourceType: 'site',
+        })
+      ),
+    )
+    log('Registry initialized')
+  }
+  await reload()
 
   const { query } = createQueryHost(registry)
 
@@ -77,8 +86,9 @@ export const createHost = async ({ baseUrl, sitePaths, watch }: HostOptions) => 
   }
 
   return {
+    registry,
+    reload,
     handleRequest,
-    getRegistry: () => registry,
     query,
   }
 }
