@@ -13,9 +13,12 @@ fields:
       - delete
   path:
     description: The path of the api endpoint.
-  scriptText:
-    description: The script that will be executed when the endpoint is called.
-    type: codeblock
+  scriptType:
+    description: The resource type of the script.
+    type: choice
+    default: js
+    options:
+      - js
   script:
     description: The path to the script that will be executed when the endpoint is called.
     type: resource

@@ -1,0 +1,9 @@
+name: nanic/api
+
+title: Nanic API
+
+endpoints:
+  - in: content
+
+javascripts:
+  - in: content

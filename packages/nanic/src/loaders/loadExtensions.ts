@@ -1,4 +1,4 @@
-import type { Registry, ResourceType } from '../common.js'
+import type { LoadOptions } from '../common.js'
 import { isArray } from '@stackmeister/types'
 import { relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -14,19 +14,18 @@ import debug from 'debug'
 const log = debug('nanic:loaders:loadExtensions')
 
 const loadExtensions = async (
-  resourceType: ResourceType,
   documentId: string,
-  registry: Registry,
+  options: LoadOptions
 ) => {
-  const collection = registry.resources[resourceType]?.document.collection as string | undefined
+  const collection = options.registry.resources[options.resourceType]?.document.collection as string | undefined
   if (!collection) {
-    throw new Error(`Invalid ${resourceType}, should have a collection defined.`)
+    throw new Error(`Invalid ${options.resourceType}, should have a collection defined.`)
   }
-  const document = registry[collection][documentId].document
+  const document = options.registry[collection][documentId].document
   if (!document) {
-    throw new Error(`Invalid ${resourceType} ${documentId}, should have a document defined.`)
+    throw new Error(`Invalid ${options.resourceType} ${documentId}, should have a document defined.`)
   }
-  const documentUrl = registry[collection][documentId].meta.url
+  const documentUrl = options.registry[collection][documentId].meta.url
 
   const relativeBaseUrl = sanitizeDirectoryUrl(urlDirname(documentUrl))
 
@@ -44,7 +43,7 @@ const loadExtensions = async (
     const items = document[collection]
     if (!isArray(items)) {
       throw new Error(
-        `Invalid ${resourceType} in ${documentUrl}, ${collection} should be an array.`,
+        `Invalid ${options.resourceType} in ${documentUrl}, ${collection} should be an array.`,
       )
     }
 
@@ -59,7 +58,7 @@ const loadExtensions = async (
       items.map(async item => {
         if (typeof item === 'string') {
           await loadResourceFile({
-            registry,
+            ...options,
             baseUrl: bundledPluginsPath,
             path: item,
             resourceType: entryResourceType,
@@ -69,7 +68,7 @@ const loadExtensions = async (
 
         if (isFileReference(item)) {
           await loadResourceFile({
-            registry,
+            ...options,
             baseUrl: relativeBaseUrl,
             path: item.at,
             resourceType: entryResourceType,
@@ -84,7 +83,7 @@ const loadExtensions = async (
             foundPaths.map(foundPath => {
               const relativePath = relative(fileURLToPath(findRoot), foundPath)
               return loadResourceFile({
-                registry,
+                ...options,
                 baseUrl: findRoot,
                 path: relativePath.substring(0, relativePath.length - entryResourceType.length - 1),
                 resourceType: entryResourceType,
@@ -105,24 +104,35 @@ const loadExtensions = async (
   // First we always load all extensibles known to get a full tree of everything we have
   // registered
   // "registry" will be filled with all "sites" and "plugins" known
-  const extensibles = Object.values(registry.resources)
+  log('Extensible load of %s', documentId)
+  const extensibles = Object.values(options.registry.resources)
     .map(({ document }) => document)
     .filter(({ extensible }) => extensible)
-  await Promise.all(extensibles.map(loadExtensions))
+    .map(loadExtensions)
+  await Promise.all(extensibles)
+
+  log('Now known resources: %o, loaders: %o', Object.keys(options.registry.resources), Object.keys(options.registry.loaders))
   // With the whole plugin/site structure known (at least) we load everything
   // that needs to loads early. This is, most importantly, all the resources
-  const earlies = Object.values(registry.resources)
+  log('Early load of %s', documentId)
+  const earlies = Object.values(options.registry.resources)
     .map(({ document }) => document)
     .filter(({ early }) => early)
-  await Promise.all(earlies.map(loadExtensions))
+    .map(loadExtensions)
+  await Promise.all(earlies)
+
+  log('Now known resources: %o, loaders: %o', Object.keys(options.registry.resources), Object.keys(options.registry.loaders))
   // With probably all resources known, we will now initialize
   // _everything_ again, equipped with all required knowledge
   // This way, even resources can extend themselves by other resources
   // if wanted
-  const lates = Object.values(registry.resources)
+  log('Latest load of %s', documentId)
+  const latest = Object.values(options.registry.resources)
     .map(({ document }) => document)
     .filter(({ early }) => !early)
-  await Promise.all(lates.map(loadExtensions))
+    .map(loadExtensions)
+  await Promise.all(latest)
+  log('Now known resources: %o, loaders: %o', Object.keys(options.registry.resources), Object.keys(options.registry.loaders))
 }
 
 export default loadExtensions

@@ -3,3 +3,5 @@ email: admin@example.com
 password:
   type: raw
   value: admin
+roles:
+  - admin

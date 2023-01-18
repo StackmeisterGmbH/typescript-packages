@@ -1,0 +1,6 @@
+description: Get and filter resources of any kind.
+
+method: get
+path: /.well-known/nanic-api/:collectionName
+scriptType: js
+script: api/get-collection

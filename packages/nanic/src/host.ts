@@ -1,10 +1,11 @@
 import type { IncomingMessage, ServerResponse } from 'http'
-import { createMinimumViableRegistry, Registry } from './common.js'
+import { Registry } from './common.js'
 import { createQueryHost } from './query.js'
-import { isFunction, isObject } from '@stackmeister/types'
+import { isFunction } from '@stackmeister/types'
 import { match } from 'path-to-regexp'
 import { loadResourceFile } from './loaders/loadResourceFile.js'
 import debug from 'debug'
+import createMinimumViableRegistry from './utils/registry/createMinimumViableRegistry.js'
 
 const log = debug('nanic:host')
 
@@ -22,7 +23,7 @@ export type Host = {
 
 export const createHost = async ({ baseUrl, sitePaths }: HostOptions): Promise<Host> => {
   log('Creating host in %s for %o', baseUrl, sitePaths)
-  const registry = createMinimumViableRegistry()
+  const registry = await createMinimumViableRegistry()
 
   const reload = async (): Promise<void> => {
     log('Initializing registry...')
@@ -33,6 +34,8 @@ export const createHost = async ({ baseUrl, sitePaths }: HostOptions): Promise<H
           baseUrl,
           path,
           resourceType: 'site',
+          currentSiteId: undefined,
+          currentPluginId: undefined,
         })
       ),
     )
@@ -69,14 +72,14 @@ export const createHost = async ({ baseUrl, sitePaths }: HostOptions): Promise<H
         return
       }
 
-      if (!isObject(script.document.exports) || !isFunction(script.document.exports.default)) {
+      if (!isFunction(script.document.handleRequest)) {
         log('-  Script %s has no exports function', script.meta.name)
         res.writeHead(404)
         res.end()
         return
       }
 
-      script.document.exports.default({ req, res, params: result.params, query, registry })
+      script.document.handleRequest({ req, res, params: result.params, query, registry })
       return
     }
 

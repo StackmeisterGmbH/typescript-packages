@@ -1,0 +1,6 @@
+description: Get a single resource by its ID.
+
+method: get
+path: /.well-known/nanic-api/:collectionName/:id(.*)
+scriptType: js
+script: api/get-collection-item

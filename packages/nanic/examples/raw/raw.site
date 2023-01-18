@@ -12,6 +12,6 @@ users:
 
 plugins:
   - core
+  - api
   - editor
   - in: plugins
-

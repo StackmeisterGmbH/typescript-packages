@@ -1,0 +1,3 @@
+name: yaml
+scriptType: js
+script: loaders/yaml

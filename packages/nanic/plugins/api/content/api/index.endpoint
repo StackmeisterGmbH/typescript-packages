@@ -1,0 +1,6 @@
+description: Editor overview.
+
+method: get
+path: /.well-known/nanic-api
+scriptType: js
+script: api/index

@@ -1,0 +1,3 @@
+name: text
+scriptType: js
+script: loaders/text

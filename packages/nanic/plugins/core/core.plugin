@@ -6,9 +6,12 @@ license: MIT
 
 resources:
   - in: resources
-    
-queryprops:
-  - in: queryprops
+
+javascripts:
+  - in: scripts
+
+loaders:
+  - in: loaders
 
 fields:
   - in: fields

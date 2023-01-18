@@ -1,4 +1,5 @@
 name: js
 collection: javascripts
 description: A JavaScript resource.
-loader: javascript
+early: true
+loader: js

@@ -13,12 +13,3 @@ fields:
     description: The author of the plugin
   license:
     description: The license of the plugin
-
-  resources:
-   type: list
-  
-  fields:
-   type: list
-
-  blocks:
-   type: list

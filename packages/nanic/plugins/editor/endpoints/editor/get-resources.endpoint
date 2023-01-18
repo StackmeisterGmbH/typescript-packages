@@ -1,7 +1,0 @@
-name: get-resources
-description: Get and filter resources of any kind.
-
-method: get
-path: /.well-known/nanic-editor-api/:resourceType/:resourceId?
-scriptType: js
-script: editor/get-resources

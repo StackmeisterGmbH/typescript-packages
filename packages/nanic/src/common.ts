@@ -7,6 +7,8 @@ export type DocumentMeta = {
   readonly name: string
   readonly index: number
   readonly url: URL
+  readonly siteId: string | undefined
+  readonly pluginId: string | undefined
 }
 
 export type FileReference = { readonly at: Path }
@@ -26,38 +28,6 @@ export type LoadOptions = {
   readonly baseUrl: URL
   readonly path: Path
   readonly resourceType: ResourceType
+  readonly currentSiteId: string | undefined
+  readonly currentPluginId: string | undefined
 }
-
-export const createMinimumViableRegistry = (): Registry => ({
-  sites: {},
-  plugins: {},
-  resources: {
-    site: {
-      meta: {
-        id: 'site',
-        url: new URL('file:///core.plugin'),
-        index: 0,
-        name: 'site',
-      },
-      document: { name: 'site', collection: 'sites', extensible: true },
-    },
-    plugin: {
-      meta: {
-        id: 'plugin',
-        url: new URL('file:///core.plugin'),
-        index: 0,
-        name: 'plugin',
-      },
-      document: { name: 'plugin', collection: 'plugins', extensible: true },
-    },
-    resource: {
-      meta: {
-        id: 'resource',
-        url: new URL('file:///core.plugin'),
-        index: 0,
-        name: 'resource',
-      },
-      document: { name: 'resource', collection: 'resources', early: true },
-    },
-  },
-})

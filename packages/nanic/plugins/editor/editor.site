@@ -3,7 +3,10 @@ name: nanic/editor
 title: Nanic Editor
 
 endpoints:
-  - in: endpoints
+  - in: content
 
 javascripts:
-  - in: javascripts
+  - in: content
+
+jsxTemplates:
+  - in: content
