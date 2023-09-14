@@ -267,7 +267,8 @@ const createObservedArray = <Value extends Array<unknown>>(
         case 'reverse':
         case 'sort': {
           return (...args: unknown[]) => {
-            Reflect.get(target, key, receiver).apply(target, args)
+            const method = Reflect.get(target, key, receiver)
+            Reflect.apply(method, target, args)
             options.onOperation(replace(options.path, target))
           }
         }

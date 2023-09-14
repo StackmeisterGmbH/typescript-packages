@@ -1,7 +1,7 @@
 The MIT License (MIT)
 =====================
 
-Copyright © 2022 Stackmeister GmbH <info@stackmeister.com>
+Copyright © 2017-2023 Stackmeister GmbH <info@stackmeister.com>
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation

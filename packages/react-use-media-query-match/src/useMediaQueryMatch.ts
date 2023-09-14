@@ -4,7 +4,7 @@ const addListener = (
   queryList: MediaQueryList,
   handler: (event: MediaQueryListEvent) => void,
 ): (() => void) => {
-  if ('addEventListener' in queryList) {
+  if (queryList.addEventListener) {
     queryList.addEventListener('change', handler)
     return () => queryList.removeEventListener('change', handler)
   }
